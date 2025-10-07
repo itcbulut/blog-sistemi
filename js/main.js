@@ -16,11 +16,16 @@ function formatCategory(category) {
     return categoryMap[category] || category.charAt(0).toUpperCase() + category.slice(1);
 }
 
-// Blog verilerini localStorage'dan al
-function getBlogPosts() {
+// Blog verilerini JSON dosyasından al
+async function getBlogPosts() {
     try {
-        const posts = localStorage.getItem('blogPosts');
-        return posts ? JSON.parse(posts) : [];
+        const response = await fetch('data/blog-posts.json');
+        if (!response.ok) {
+            throw new Error('JSON dosyası yüklenemedi');
+        }
+        const posts = await response.json();
+        console.log('JSON dosyasından yazılar yüklendi:', posts.length, 'yazı');
+        return posts;
     } catch (error) {
         console.error('Blog verileri yüklenirken hata:', error);
         return [];
@@ -28,8 +33,8 @@ function getBlogPosts() {
 }
 
 // İstatistikleri güncelle
-function updateStats() {
-    const posts = getBlogPosts();
+async function updateStats() {
+    const posts = await getBlogPosts();
     const totalPosts = posts.length;
     
     // Kategorileri say (formatlanmış)
@@ -47,8 +52,8 @@ function updateStats() {
 }
 
 // Blog yazılarını listele
-function displayBlogPosts(filterCategory = 'all') {
-    const posts = getBlogPosts();
+async function displayBlogPosts(filterCategory = 'all') {
+    const posts = await getBlogPosts();
     const blogList = document.getElementById('blog-list');
     const noPostsMessage = document.getElementById('no-posts-message');
     const noFilterResults = document.getElementById('no-filter-results');
@@ -109,12 +114,12 @@ function resetFilter() {
 }
 
 // Sayfa yüklendiğinde blog yazılarını göster
-document.addEventListener('DOMContentLoaded', function() {
+document.addEventListener('DOMContentLoaded', async function() {
     // İstatistikleri güncelle
-    updateStats();
+    await updateStats();
     
     // Yazıları göster
-    displayBlogPosts();
+    await displayBlogPosts();
     
     // Kategori filtreleme
     document.getElementById('category-filter').addEventListener('change', function() {
