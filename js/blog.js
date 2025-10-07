@@ -26,8 +26,22 @@ function getUrlParameter(name) {
     return decodeURIComponent(results[2].replace(/\+/g, ' '));
 }
 
+// Blog verilerini JSON dosyasından al
+async function getBlogPosts() {
+    try {
+        const response = await fetch('data/blog-posts.json');
+        if (!response.ok) {
+            throw new Error('JSON dosyası yüklenemedi');
+        }
+        return await response.json();
+    } catch (error) {
+        console.error('Blog verileri yüklenirken hata:', error);
+        return [];
+    }
+}
+
 // Blog yazısını göster
-function displayBlogPost() {
+async function displayBlogPost() {
     const postId = getUrlParameter('id');
     const blogDetail = document.getElementById('blog-detail');
     
@@ -36,7 +50,7 @@ function displayBlogPost() {
         return;
     }
     
-    const posts = JSON.parse(localStorage.getItem('blogPosts') || '[]');
+    const posts = await getBlogPosts();
     const post = posts.find(p => p.id === postId);
     
     if (!post) {
