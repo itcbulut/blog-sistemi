@@ -18,8 +18,13 @@ function formatCategory(category) {
 
 // Blog verilerini localStorage'dan al
 function getBlogPosts() {
-    const posts = localStorage.getItem('blogPosts');
-    return posts ? JSON.parse(posts) : [];
+    try {
+        const posts = localStorage.getItem('blogPosts');
+        return posts ? JSON.parse(posts) : [];
+    } catch (error) {
+        console.error('Blog verileri yüklenirken hata:', error);
+        return [];
+    }
 }
 
 // İstatistikleri güncelle
