@@ -5,13 +5,41 @@ function generateId() {
 
 // Blog verilerini al
 function getBlogPosts() {
-    const posts = localStorage.getItem('blogPosts');
-    return posts ? JSON.parse(posts) : [];
+    try {
+        const posts = localStorage.getItem('blogPosts');
+        if (!posts) {
+            // Eğer hiç veri yoksa, örnek bir yazı oluştur
+            const samplePosts = [
+                {
+                    id: 'sample1',
+                    title: 'Blog Siteme Hoş Geldiniz',
+                    content: 'Bu, blog sisteminizin ilk örnek yazısıdır. Admin panelinden yeni yazılar ekleyebilir, düzenleyebilir ve silebilirsiniz.\n\nBlog sisteminiz tamamen Türkçe arayüze sahiptir ve kullanıcı dostu bir yapı sunar. Yazılarınızı kategorilere ayırabilir ve zengin içerikler oluşturabilirsiniz.',
+                    author: 'Admin',
+                    category: 'kişisel',
+                    date: new Date().toISOString()
+                }
+            ];
+            saveBlogPosts(samplePosts);
+            return samplePosts;
+        }
+        return JSON.parse(posts);
+    } catch (error) {
+        console.error('Blog verileri yüklenirken hata:', error);
+        return [];
+    }
 }
 
 // Blog verilerini kaydet
 function saveBlogPosts(posts) {
-    localStorage.setItem('blogPosts', JSON.stringify(posts));
+    try {
+        localStorage.setItem('blogPosts', JSON.stringify(posts));
+        console.log('Blog verileri kaydedildi:', posts.length, 'yazı');
+        return true;
+    } catch (error) {
+        console.error('Blog verileri kaydedilirken hata:', error);
+        showMessage('Veriler kaydedilirken bir hata oluştu!', 'error', 3000);
+        return false;
+    }
 }
 
 // Kategori ismini formatla (büyük harfle başlat)
@@ -162,14 +190,18 @@ function handleNewPostSubmit(e) {
     
     const posts = getBlogPosts();
     posts.unshift(newPost);
-    saveBlogPosts(posts);
     
-    this.reset();
-    // Kategoriyi varsayılana sıfırla
-    setSelectedCategory('teknoloji');
-    displayAdminPosts();
-    updateStats();
-    showMessage('Blog yazınız başarıyla yayınlandı! 🎉', 'success', 3000);
+    // Kaydetme işlemini kontrol et
+    const saveSuccess = saveBlogPosts(posts);
+    
+    if (saveSuccess) {
+        this.reset();
+        // Kategoriyi varsayılana sıfırla
+        setSelectedCategory('teknoloji');
+        displayAdminPosts();
+        updateStats();
+        showMessage('Blog yazınız başarıyla yayınlandı! 🎉', 'success', 3000);
+    }
 }
 
 // Düzenleme submit işleyicisi
@@ -221,13 +253,17 @@ function handleEditSubmit(e) {
         category
     };
     
-    saveBlogPosts(posts);
-    displayAdminPosts();
-    updateStats();
-    showMessage('Yazı başarıyla güncellendi! ✨', 'success', 3000);
+    // Kaydetme işlemini kontrol et
+    const saveSuccess = saveBlogPosts(posts);
     
-    // Düzenleme modundan çık
-    cancelEdit();
+    if (saveSuccess) {
+        displayAdminPosts();
+        updateStats();
+        showMessage('Yazı başarıyla güncellendi! ✨', 'success', 3000);
+        
+        // Düzenleme modundan çık
+        cancelEdit();
+    }
 }
 
 // Düzenleme iptal
@@ -265,6 +301,12 @@ function initializeForm() {
             this.style.height = 'auto';
             this.style.height = (this.scrollHeight) + 'px';
         });
+        
+        // Sayfa yüklendiğinde textarea yüksekliğini ayarla
+        setTimeout(() => {
+            textarea.style.height = 'auto';
+            textarea.style.height = (textarea.scrollHeight) + 'px';
+        }, 100);
     }
 }
 
@@ -329,14 +371,19 @@ function deletePost(id) {
     
     if (confirmation) {
         const filteredPosts = posts.filter(post => post.id !== id);
-        saveBlogPosts(filteredPosts);
-        displayAdminPosts();
-        updateStats();
-        showMessage('Yazı başarıyla silindi! 🗑️', 'success', 3000);
         
-        // Eğer silinen yazı düzenleniyorsa, formu sıfırla
-        if (currentEditId === id) {
-            cancelEdit();
+        // Kaydetme işlemini kontrol et
+        const saveSuccess = saveBlogPosts(filteredPosts);
+        
+        if (saveSuccess) {
+            displayAdminPosts();
+            updateStats();
+            showMessage('Yazı başarıyla silindi! 🗑️', 'success', 3000);
+            
+            // Eğer silinen yazı düzenleniyorsa, formu sıfırla
+            if (currentEditId === id) {
+                cancelEdit();
+            }
         }
     }
 }
