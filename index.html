@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BlogSitem - Modern Blog Platform</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+</head>
+<body>
+    <header>
+        <div class="container">
+            <div class="header-content">
+                <div class="logo">
+                    <h1>BlogSitem</h1>
+                </div>
+                <nav>
+                    <ul>
+                        <li><a href="index.html" class="active">🏠 Ana Sayfa</a></li>
+                    </ul>
+                </nav>
+            </div>
+        </div>
+    </header>
+
+    <main class="container">
+        <section class="hero">
+            <h2>Modern Blog Deneyimi</h2>
+            <p>En güncel ve kaliteli içeriklerle dolu blog dünyasına hoş geldiniz</p>
+        </section>
+
+        <section class="blog-stats">
+            <div class="stats-grid">
+                <div class="stat-card">
+                    <span class="stat-number" id="total-posts">0</span>
+                    <span class="stat-label">Toplam Yazı</span>
+                </div>
+                <div class="stat-card">
+                    <span class="stat-number" id="total-categories">0</span>
+                    <span class="stat-label">Kategori</span>
+                </div>
+                <div class="stat-card">
+                    <span class="stat-number" id="latest-post">-</span>
+                    <span class="stat-label">Son Yazı</span>
+                </div>
+            </div>
+        </section>
+
+        <section class="blog-posts">
+            <div class="section-header">
+                <h2>Son Blog Yazıları</h2>
+                <div class="category-filter">
+                    <select id="category-filter" class="category-dropdown">
+                        <option value="all">📂 Tüm Kategoriler</option>
+                        <option value="teknoloji">💻 Teknoloji</option>
+                        <option value="yazılım">🔧 Yazılım</option>
+                        <option value="tasarım">🎨 Tasarım</option>
+                        <option value="kişisel">👤 Kişisel</option>
+                        <option value="yaşam">🌱 Yaşam</option>
+                        <option value="eğitim">📚 Eğitim</option>
+                        <option value="seyahat">✈️ Seyahat</option>
+                        <option value="sanat">🎭 Sanat</option>
+                    </select>
+                </div>
+            </div>
+            
+            <div id="blog-list" class="posts-grid">
+                <!-- Blog yazıları buraya JavaScript ile eklenecek -->
+            </div>
+
+            <div id="no-posts-message" class="no-posts" style="display: none;">
+                <div class="empty-state">
+                    <h3>Henüz hiç blog yazısı yok</h3>
+                    <p>Blog yazıları yakında eklenecek.</p>
+                </div>
+            </div>
+
+            <div id="no-filter-results" class="no-posts" style="display: none;">
+                <div class="empty-state">
+                    <h3>Bu kategoride yazı bulunamadı</h3>
+                    <p>Farklı bir kategori seçin veya tüm yazıları görüntüleyin.</p>
+                    <button onclick="resetFilter()" class="btn btn-primary">Tüm Yazıları Göster</button>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <div class="container">
+            <p>&copy; 2024 BlogSitem. Tüm hakları saklıdır.</p>
+        </div>
+    </footer>
+
+    <script src="js/main.js"></script>
+</body>
+</html>
