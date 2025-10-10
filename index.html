@@ -1,105 +1,194 @@
 <!DOCTYPE html>
-<html lang="tr">
+<html lang="tr" data-theme="light">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>BlogSitem - Modern Blog Platformu</title>
     
-    <!-- Favicon -->
     <link rel="icon" type="image/x-icon" href="https://i.imgur.com/kiy1Ys1.png">
     <link rel="icon" type="image/png" href="https://i.imgur.com/kiy1Ys1.png">
     <link rel="apple-touch-icon" href="https://i.imgur.com/kiy1Ys1.png">
     <meta name="theme-color" content="#6366f1">
+    <meta name="description" content="Modern blog deneyimi ile en güncel içerikler">
     
     <link rel="stylesheet" href="css/style.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <link href="https://unpkg.com/lucide@latest/dist/umd/lucide.js" rel="stylesheet">
 </head>
 <body>
-    <header>
+    <header class="glass-header">
         <div class="container">
             <div class="header-content">
                 <div class="logo">
+                    <div class="logo-icon">✨</div>
                     <h1>BlogSitem</h1>
                 </div>
-                <nav>
+                
+                <nav class="nav-menu">
                     <ul>
-                        <li><a href="index.html" class="active">🏠 Ana Sayfa</a></li>
+                        <li><a href="index.html" class="nav-link active">
+                            <i data-lucide="home" class="nav-icon"></i>
+                            Ana Sayfa
+                        </a></li>
                     </ul>
                 </nav>
+
+                <div class="header-actions">
+                    <button class="theme-toggle" id="themeToggle" aria-label="Tema değiştir">
+                        <i data-lucide="moon" class="theme-icon"></i>
+                    </button>
+                </div>
             </div>
         </div>
     </header>
 
     <main class="container">
-        <section class="hero">
-            <h2>Modern Blog Deneyimi</h2>
-            <p>En güncel ve kaliteli içeriklerle dolu blog dünyasına hoş geldiniz</p>
-        </section>
-
-        <section class="blog-stats">
-            <div class="stats-grid">
-                <div class="stat-card">
-                    <span class="stat-number" id="total-posts">0</span>
-                    <span class="stat-label">Toplam Yazı</span>
+        <section class="hero-section">
+            <div class="hero-content">
+                <div class="hero-badge">
+                    <span>🚀 Yeni Nesil Blog Platformu</span>
                 </div>
-                <div class="stat-card">
-                    <span class="stat-number" id="total-categories">0</span>
-                    <span class="stat-label">Kategori</span>
+                <h1 class="hero-title">
+                    Fikirlerin 
+                    <span class="gradient-text">Gücünü</span> 
+                    Keşfedin
+                </h1>
+                <p class="hero-description">
+                    Modern tasarım, hızlı performans ve zengin içeriklerle dolu 
+                    blog dünyasına hoş geldiniz. En son trendleri takip edin.
+                </p>
+                <div class="hero-actions">
+                    <button class="btn btn-primary btn-hero" onclick="scrollToBlogs()">
+                        <i data-lucide="compass"></i>
+                        Keşfetmeye Başla
+                    </button>
                 </div>
-                <div class="stat-card">
-                    <span class="stat-number" id="latest-post">-</span>
-                    <span class="stat-label">Son Yazı</span>
+            </div>
+            <div class="hero-visual">
+                <div class="floating-card card-1">
+                    <i data-lucide="sparkles" class="card-icon"></i>
+                    <h4>AI Destekli</h4>
+                </div>
+                <div class="floating-card card-2">
+                    <i data-lucide="zap" class="card-icon"></i>
+                    <h4>Hızlı</h4>
+                </div>
+                <div class="floating-card card-3">
+                    <i data-lucide="shield" class="card-icon"></i>
+                    <h4>Güvenli</h4>
                 </div>
             </div>
         </section>
 
-        <section class="blog-posts">
+        <section class="stats-section">
+            <div class="stats-grid">
+                <div class="stat-card">
+                    <div class="stat-icon">
+                        <i data-lucide="file-text"></i>
+                    </div>
+                    <div class="stat-content">
+                        <span class="stat-number" id="total-posts">0</span>
+                        <span class="stat-label">Toplam Yazı</span>
+                    </div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-icon">
+                        <i data-lucide="folder"></i>
+                    </div>
+                    <div class="stat-content">
+                        <span class="stat-number" id="total-categories">0</span>
+                        <span class="stat-label">Kategori</span>
+                    </div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-icon">
+                        <i data-lucide="users"></i>
+                    </div>
+                    <div class="stat-content">
+                        <span class="stat-number" id="total-authors">0</span>
+                        <span class="stat-label">Yazar</span>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="blog-section" id="blog-section">
             <div class="section-header">
-                <h2>Son Blog Yazıları</h2>
-                <div class="category-filter">
-                    <select id="category-filter" class="category-dropdown">
-                        <option value="all">📂 Tüm Kategoriler</option>
-                        <option value="teknoloji">💻 Teknoloji</option>
-                        <option value="yazılım">🔧 Yazılım</option>
-                        <option value="tasarım">🎨 Tasarım</option>
-                        <option value="kişisel">👤 Kişisel</option>
-                        <option value="yaşam">🌱 Yaşam</option>
-                        <option value="eğitim">📚 Eğitim</option>
-                        <option value="seyahat">✈️ Seyahat</option>
-                        <option value="sanat">🎭 Sanat</option>
-                    </select>
+                <div class="section-title">
+                    <h2>Son Blog Yazıları</h2>
+                    <p>En güncel ve popüler içerikler</p>
+                </div>
+                <div class="section-controls">
+                    <div class="category-filter">
+                        <select id="category-filter" class="modern-dropdown">
+                            <option value="all">📂 Tüm Kategoriler</option>
+                            <option value="teknoloji">💻 Teknoloji</option>
+                            <option value="yazılım">🔧 Yazılım</option>
+                            <option value="tasarım">🎨 Tasarım</option>
+                            <option value="kişisel">👤 Kişisel</option>
+                            <option value="yaşam">🌱 Yaşam</option>
+                            <option value="eğitim">📚 Eğitim</option>
+                            <option value="seyahat">✈️ Seyahat</option>
+                            <option value="sanat">🎭 Sanat</option>
+                        </select>
+                    </div>
                 </div>
             </div>
             
             <div id="blog-list" class="posts-grid">
-                <!-- Blog yazıları buraya JavaScript ile eklenecek -->
             </div>
 
-            <div id="no-posts-message" class="no-posts" style="display: none;">
-                <div class="empty-state">
+            <div id="no-posts-message" class="empty-state" style="display: none;">
+                <div class="empty-content">
+                    <i data-lucide="file-text" class="empty-icon"></i>
                     <h3>Henüz hiç blog yazısı yok</h3>
-                    <p>Blog yazıları yakında eklenecek.</p>
+                    <p>Blog yazıları yakında eklenecek. Lütfen daha sonra tekrar kontrol edin.</p>
                 </div>
             </div>
 
-            <div id="no-filter-results" class="no-posts" style="display: none;">
-                <div class="empty-state">
+            <div id="no-filter-results" class="empty-state" style="display: none;">
+                <div class="empty-content">
+                    <i data-lucide="search" class="empty-icon"></i>
                     <h3>Bu kategoride yazı bulunamadı</h3>
                     <p>Farklı bir kategori seçin veya tüm yazıları görüntüleyin.</p>
-                    <button onclick="resetFilter()" class="btn btn-primary">Tüm Yazıları Göster</button>
+                    <button onclick="resetFilter()" class="btn btn-primary">
+                        <i data-lucide="refresh-cw"></i>
+                        Tüm Yazıları Göster
+                    </button>
                 </div>
             </div>
         </section>
     </main>
 
-    <footer>
+    <footer class="modern-footer">
         <div class="container">
-            <p>&copy; 2025 ITC • Tüm hakları saklıdır.</p>
+            <div class="footer-content">
+                <div class="footer-brand">
+                    <div class="logo">
+                        <div class="logo-icon">✨</div>
+                        <h2>BlogSitem</h2>
+                    </div>
+                    <p class="footer-description">
+                        Modern blog deneyimi ile en güncel içerikleri sunuyoruz. 
+                        Fikirlerinizi paylaşın, bilgiyi keşfedin.
+                    </p>
+                    <div class="social-links">
+                        <a href="https://github.com/itcbulut" class="social-link">
+                            <i data-lucide="github"></i>
+                        </a>
+                    </div>
+            
+            <div class="footer-bottom">
+                <p>&copy; 2025 ITC • Tüm hakları saklıdır.</p>
+                <div class="footer-bottom-links">
+                </div>
+            </div>
         </div>
     </footer>
 
+    <script src="https://unpkg.com/lucide@latest/dist/umd/lucide.js"></script>
     <script src="js/main.js"></script>
 </body>
 </html>
