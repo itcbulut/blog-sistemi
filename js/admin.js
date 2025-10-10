@@ -1,20 +1,18 @@
-// Blog verilerini JSON dosyasından al
-async function getBlogPosts() {
-    try {
-        const response = await fetch('data/blog-posts.json');
-        if (!response.ok) {
-            throw new Error('JSON dosyası yüklenemedi');
-        }
-        const posts = await response.json();
-        console.log('JSON dosyasından yazılar yüklendi:', posts.length, 'yazı');
-        return posts;
-    } catch (error) {
-        console.error('Blog verileri yüklenirken hata:', error);
-        return [];
+const blogPosts = [
+    {
+        "id": "1",
+        "title": "San'at Şiiri Hakkındaki Düşüncelerim",
+        "content": "Bu yazıda Sanat şiiri ile ilgili düşüncelerimi anlatacağım. Şiir üzerinde çok düşünülmüş ve uğraşılmış. Şair Anadolu'yu ve Batı'yı yoğun olarak karşılaştırıyor ve üzerinde durarak çeşitli örnekler veriyor. Beni en çok etkileyen bölüm son dörtlük oldu. Bu dörtlükde şair Batı sanatını bilmediğini ve sadece Anadolu sanatının gerçek olduğuna değiniyor. Kendi vatanın sanatını çok önemli buluyor ve onu savunuyor. Ayrıca şiirde doğadan, yazı sanatından, ses sanatlarından bahsedilip birbirleri ile kıyaslanıyor. Şair Batı sanatının kültürünü değersiz ve sıkıcı buluyor. Ek olarak şair şiirde birçok söz sanatı kullanmış. Şiirde geçen söz sanatlarından bazıları benzetme, karşılaştırma.\n\nŞair Batı sanatının orkestrasını da karmaşık ve gürültülü buluyor. Bizim vatanımızın acı çekenlerinin seslerini dinlemeyi onun yerine koyuyor. Bu arada şair Batı sanatını hiç sevmiyor ve ben buna katılmıyorum. Bence herkes her türden sanatla ilgilenmelidir. Kimse sanatdan ve sanat dallarından koparılmamalıdır. İnsanlar orkestraya gitmeli, heykelleri incelemeli, bale izlemelidir. Şair vatanına sadık ve kültürlü biri.\n\nŞair başkalarının bahçesinde sadece onlar için çiçekler açtığını, onların yollarının yalın ve sade olduğundan bahsediyor. Bizim ülkemizin daha renkli ve canlı olduğu kasdediliyor. Diğer dörtlük ve bölümlerde Anadolu kültür ve sanatının daha çekici ve iç açıcı olduğundan bahsediliyor.",
+        "author": "Bulut",
+        "category": "sanat",
+        "date": "2025-10-07T19:14:00.000Z"
     }
+];
+
+function getBlogPosts() {
+    return blogPosts;
 }
 
-// Kategori ismini formatla (büyük harfle başlat)
 function formatCategory(category) {
     if (!category) return '';
     
@@ -32,7 +30,5 @@ function formatCategory(category) {
     return categoryMap[category] || category.charAt(0).toUpperCase() + category.slice(1);
 }
 
-// Sayfa yüklendiğinde
 document.addEventListener('DOMContentLoaded', async function() {
-    console.log('Blog sistemi başlatıldı');
 });
