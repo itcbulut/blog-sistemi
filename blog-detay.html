@@ -5,24 +5,30 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Blog Yazısı - BlogSitem</title>
     
-    <!-- Favicon -->
     <link rel="icon" type="image/x-icon" href="https://i.imgur.com/kiy1Ys1.png">
     <link rel="icon" type="image/png" href="https://i.imgur.com/kiy1Ys1.png">
     <link rel="apple-touch-icon" href="https://i.imgur.com/kiy1Ys1.png">
     <meta name="theme-color" content="#6366f1">
     
     <link rel="stylesheet" href="css/style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
 </head>
 <body>
-    <header>
+    <header class="glass-header">
         <div class="container">
             <div class="header-content">
                 <div class="logo">
+                    <div class="logo-icon">✨</div>
                     <h1>BlogSitem</h1>
                 </div>
-                <nav>
+                <nav class="nav-menu">
                     <ul>
-                        <li><a href="index.html">Ana Sayfa</a></li>
+                        <li><a href="index.html" class="nav-link">
+                            <i data-lucide="home" class="nav-icon"></i>
+                            Ana Sayfa
+                        </a></li>
                     </ul>
                 </nav>
             </div>
@@ -31,16 +37,20 @@
 
     <main class="container">
         <article class="blog-detail" id="blog-detail">
-            <!-- Blog yazısı detayları buraya eklenecek -->
+            <div class="blog-loading">
+                <i data-lucide="loader" class="loading-icon"></i>
+                <p>Yazı yükleniyor...</p>
+            </div>
         </article>
     </main>
 
-    <footer>
+    <footer class="modern-footer">
         <div class="container">
             <p>&copy; 2025 ITC • Tüm hakları saklıdır.</p>
         </div>
     </footer>
 
+    <script src="https://unpkg.com/lucide@latest/dist/umd/lucide.js"></script>
     <script src="js/blog.js"></script>
 </body>
 </html>
